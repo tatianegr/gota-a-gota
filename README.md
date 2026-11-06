@@ -22,6 +22,20 @@ As notificações **não ficam ligadas automaticamente**. Ative-as em **Ajustes 
 - Um iPhone ou Android com o **Expo Go compatível com Expo SDK 58**.
 - Um computador com VS Code (opcional, mas recomendado).
 
+## Versão web instalável (PWA)
+
+A pasta `docs/` contém um site independente, com registro de goladas, histórico de sete dias, configurações e cache offline. Os dados são armazenados no próprio navegador.
+
+Para publicar usando GitHub Pages:
+1. No repositório, abra **Settings → Pages**.
+2. Em **Build and deployment**, selecione **Deploy from a branch**.
+3. Selecione a branch **main** e a pasta **/docs**; clique em **Save**.
+4. Após a implantação, o endereço será `https://tatianegr.github.io/gota-a-gota/`.
+
+No iPhone, abra esse endereço no **Safari**, use **Compartilhar → Adicionar à Tela de Início** e confirme.
+
+**Limitação de avisos:** nesta PWA, os lembretes aparecem **enquanto o site está aberto**. Notificações com o app fechado requerem backend de Web Push (subscription + servidor com agendamento e chaves VAPID). Somente GitHub Pages não oferece esse backend. A versão Expo nativa usa notificações locais e funciona de maneira diferente.
+
 ## Rodar no celular
 
 1. Descompacte este projeto e abra a pasta `gota-a-gota` no VS Code.
