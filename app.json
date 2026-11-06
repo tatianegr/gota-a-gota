@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Gota a Gota",
+    "slug": "gota-a-gota",
+    "scheme": "gotaagota",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.seuprojeto.gotaagota"
+    },
+    "android": {
+      "package": "com.seuprojeto.gotaagota",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#EAF8FC"
+      }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "enableRemoteNotifications": false
+        }
+      ]
+    ]
+  }
+}
