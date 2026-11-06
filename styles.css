@@ -96,3 +96,30 @@ html,body {background: #090f15;color:#edf6f7;}
 }
 .toast p {color:#cfe8e7;}
 .toast button {color:#e4f5f5;}
+
+
+/* Configuração opcional de Web Push, mantendo o tema escuro */
+.push-setup {margin-top:15px;display:flex;flex-direction:column;gap:12px}
+.push-title-row {display:flex;justify-content:space-between;align-items:center;gap:12px}
+.push-title-row .eyebrow {margin:0 0 5px}
+.push-title-row h2 {line-height:1.35}
+.push-icon {font-size:26px;background:#243f46;padding:12px;border-radius:15px}
+.push-setup>p:not(.eyebrow),.push-hint {font-size:12px;line-height:1.75;color:#b0c3c7;margin:0}
+.push-label {font-size:12px;font-weight:800;color:#edf6f7;margin-top:5px}
+.push-field {
+  width:100%;min-width:0;padding:13px 12px;
+  border:1px solid #3a515a;border-radius:11px;
+  background:#0f1d26;color:#edf7f6;font-size:13px;
+}
+.push-field::placeholder {color:#879fa5}
+.push-field:focus-visible {outline:2px solid #8df7e6;outline-offset:2px}
+.push-setup .push-hint {font-size:11px}
+.push-button {width:100%;margin-top:4px}
+.push-buttons {display:flex;gap:8px;flex-wrap:wrap}
+.push-buttons button {flex:1;min-width:105px}
+.push-status {
+  background:#20343c;color:#d1e8e9!important;
+  border:1px solid #36575d;padding:13px;border-radius:12px;
+  font-size:12px;line-height:1.6;margin:0
+}
+.push-status[data-state="ok"] {background:#173e37;color:#adf2db!important;border-color:#34846f}
