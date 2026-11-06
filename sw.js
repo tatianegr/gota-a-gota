@@ -1,6 +1,6 @@
 const CACHE_PREFIX = 'gota-a-gota-web-';
-const CACHE = CACHE_PREFIX + 'v4';
-const APP_FILES = ['./','./index.html','./styles.css?v=4','./app.js','./push.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const CACHE = CACHE_PREFIX + 'v5';
+const APP_FILES = ['./','./index.html','./styles.css?v=4','./app.js','./push.js','./manifest.webmanifest','./icon.svg','./apple-touch-icon.png?v=2','./icon-192.png','./icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(APP_FILES)).then(() => self.skipWaiting()));
 });
