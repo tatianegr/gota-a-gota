@@ -9,4 +9,4 @@ crons = ["*/5 * * * *"]
 [[d1_databases]]
 binding = "DB"
 database_name = "gota-a-gota-push"
-database_id = "SUBSTITUA_PELO_ID_DO_SEU_BANCO_D1"
+database_id = "efe71d1d-04ea-4de5-a591-4ca1f967006d"
