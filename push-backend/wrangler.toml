@@ -2,6 +2,8 @@ name = "gota-a-gota"
 main = "src/index.js"
 compatibility_date = "2026-11-06"
 compatibility_flags = ["nodejs_compat"]
+# Preserve runtime variables configured in the Cloudflare dashboard.
+keep_vars = true
 
 [triggers]
 crons = ["*/5 * * * *"]
