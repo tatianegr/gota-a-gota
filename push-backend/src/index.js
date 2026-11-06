@@ -119,13 +119,13 @@ async function processRequest(request, env) {
       return response({ error:'Número máximo de aparelhos atingido' }, 429);
     }
     await env.DB.prepare(
-      \`INSERT INTO devices (id, subscription, start_time, end_time, interval_minutes, sips, time_zone, active, updated_at)
+      `INSERT INTO devices (id, subscription, start_time, end_time, interval_minutes, sips, time_zone, active, updated_at)
        VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)
        ON CONFLICT(id) DO UPDATE SET
        subscription=excluded.subscription, start_time=excluded.start_time,
        end_time=excluded.end_time, interval_minutes=excluded.interval_minutes,
        sips=excluded.sips, time_zone=excluded.time_zone,
-       active=1, updated_at=excluded.updated_at\`
+       active=1, updated_at=excluded.updated_at`
     ).bind(
       body.id, JSON.stringify(subscription),
       schedule.start, schedule.end, schedule.interval,
