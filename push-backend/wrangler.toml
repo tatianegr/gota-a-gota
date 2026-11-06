@@ -1,4 +1,4 @@
-name = "gota-a-gota-push"
+name = "gota-a-gota"
 main = "src/index.js"
 compatibility_date = "2026-11-06"
 compatibility_flags = ["nodejs_compat"]
