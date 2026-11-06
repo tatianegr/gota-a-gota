@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="stylesheet" href="./styles.css?v=3">
+  <link rel="stylesheet" href="./styles.css?v=4">
   <title>Gota a Gota | Sua hidratação, no seu ritmo</title>
 </head>
 <body>
@@ -88,7 +88,23 @@
         </form>
         <section class="surface notice">
           <div class="notice-icon" aria-hidden="true">🔔</div>
-          <div><h2>Sobre as notificações</h2><p>Esta versão avisa dentro do app quando ele está aberto. Para receber notificações no iPhone <strong>com o app fechado</strong>, ainda será preciso integrar um serviço de notificações push.</p><button type="button" id="test-reminder" class="outlined-button">Testar aviso agora</button></div>
+          <div><h2>Avisos enquanto estiver usando</h2><p>O botão abaixo testa o aviso na tela. Para receber notificações com o Gota a Gota fechado, configure a opção seguinte.</p><button type="button" id="test-reminder" class="outlined-button">Testar aviso na tela</button></div>
+        </section>
+
+        <section class="surface push-setup" aria-labelledby="push-title">
+          <div class="push-title-row"><div><p class="eyebrow">PRÓXIMA ETAPA</p><h2 id="push-title">Notificações com o app fechado</h2></div><span class="push-icon" aria-hidden="true">🔔</span></div>
+          <p>Com o aplicativo instalado na tela de início do iPhone, você pode receber avisos mesmo sem deixá-lo aberto. Essa função precisa de um serviço de envio configurado.</p>
+          <label class="push-label" for="push-server-url">Endereço do serviço Cloudflare</label>
+          <input class="push-field" type="url" id="push-server-url" placeholder="https://gota-a-gota-push...workers.dev" autocomplete="url" spellcheck="false">
+          <label class="push-label" for="push-activation-code">Código privado de ativação</label>
+          <input class="push-field" type="password" id="push-activation-code" placeholder="Código criado no Cloudflare" autocomplete="off">
+          <p class="push-hint">O código não fica no GitHub. Você o configura no seu serviço Cloudflare e informa aqui somente no seu aparelho.</p>
+          <button type="button" class="save-button push-button" id="enable-push">Ativar notificações no celular</button>
+          <div class="push-buttons">
+            <button type="button" class="outlined-button" id="test-push">Enviar notificação de teste</button>
+            <button type="button" class="outlined-button" id="disable-push">Desativar</button>
+          </div>
+          <p id="push-status" class="push-status" role="status" aria-live="polite">Verificando disponibilidade das notificações…</p>
         </section>
         <section class="surface install-card">
           <h2>Coloque na tela de início</h2>
@@ -108,5 +124,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden><div class="toast-icon">💧</div><div><strong id="toast-title">Hora de beber água!</strong><p id="toast-body"></p></div><button type="button" id="toast-close" aria-label="Fechar aviso">×</button></div>
   <script src="./app.js" defer></script>
+  <script src="./push.js" defer></script>
 </body>
 </html>
