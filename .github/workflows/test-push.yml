@@ -1,0 +1,32 @@
+name: Validar notificações Web Push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'push-backend/**'
+      - '.github/workflows/test-push.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: push-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências
+        run: npm install --no-audit --no-fund
+      - name: Verificar sintaxe do backend
+        run: node --check src/index.js
+      - name: Executar testes
+        run: npm test
