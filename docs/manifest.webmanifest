@@ -1,0 +1,25 @@
+{
+  "name": "Gota a Gota — Hidratação",
+  "short_name": "Gota a Gota",
+  "description": "Suas pausas de hidratação, uma golada por vez.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5faf9",
+  "theme_color": "#eaf6f5",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
