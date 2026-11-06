@@ -24,17 +24,20 @@ As notificações **não ficam ligadas automaticamente**. Ative-as em **Ajustes 
 
 ## Versão web instalável (PWA)
 
-A pasta `docs/` contém um site independente, com registro de goladas, histórico de sete dias, configurações e cache offline. Os dados são armazenados no próprio navegador.
+O site do Gota a Gota fica diretamente na **raiz do repositório**: `index.html`, `app.js`, `styles.css`, `manifest.webmanifest` e `sw.js`, além dos ícones.
 
-Para publicar usando GitHub Pages:
+**Endereço principal:** https://tatianegr.github.io/gota-a-gota/
+
+Para publicar no GitHub Pages:
 1. No repositório, abra **Settings → Pages**.
-2. Em **Build and deployment**, selecione **Deploy from a branch**.
-3. Selecione a branch **main** e a pasta **/docs**; clique em **Save**.
-4. Após a implantação, o endereço será `https://tatianegr.github.io/gota-a-gota/`.
+2. Em **Build and deployment**, escolha **Deploy from a branch**.
+3. Selecione **main** e **/(root)**, depois **Save**.
 
-No iPhone, abra esse endereço no **Safari**, use **Compartilhar → Adicionar à Tela de Início** e confirme.
+O endereço antigo `/gota-a-gota/docs/` redireciona para a raiz. Como o histórico e as configurações são salvos em `localStorage` por origem, a troca da pasta **não apaga os registros no mesmo navegador e dispositivo**. Eles não são sincronizados entre navegadores ou dispositivos. Caso já tenha instalado o atalho antigo, remova-o e adicione o endereço principal novamente para atualizar o escopo do aplicativo.
 
-**Limitação de avisos:** nesta PWA, os lembretes aparecem **enquanto o site está aberto**. Notificações com o app fechado requerem backend de Web Push (subscription + servidor com agendamento e chaves VAPID). Somente GitHub Pages não oferece esse backend. A versão Expo nativa usa notificações locais e funciona de maneira diferente.
+No iPhone, abra o endereço principal no **Safari** e escolha **Compartilhar → Adicionar à Tela de Início**.
+
+**Limitação de avisos:** nesta PWA, os lembretes aparecem **enquanto o site está aberto**. Notificações com o app fechado precisam de backend de Web Push com agendamento e chaves VAPID; somente GitHub Pages não oferece esse backend. A versão nativa Expo usa notificações locais, diferentes da versão web.
 
 ## Rodar no celular
 
