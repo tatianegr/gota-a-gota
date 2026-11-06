@@ -2,22 +2,127 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <meta http-equiv="refresh" content="0;url=../">
-  <title>Gota a Gota — novo endereço</title>
+  <base href="/gota-a-gota/">
   <script>
-    // O histórico é preservado: o armazenamento local pertence ao mesmo domínio.
-    const target = '../' + window.location.search + window.location.hash;
+    // Compatibilidade com links antigos e versões previamente publicadas.
+    if (location.pathname === '/gota-a-gota/docs/' || location.pathname === '/gota-a-gota/docs/index.html') {
+      history.replaceState(null, '', '/gota-a-gota/' + location.search + location.hash);
+    }
+    // A versão antiga registrou um service worker limitado à pasta /docs/.
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations()
-        .then(regs => Promise.all(regs.filter(reg => new URL(reg.scope).pathname.endsWith('/docs/')).map(reg => reg.unregister())))
-        .catch(() => {});
+        .then(registrations => Promise.all(
+          registrations.filter(registration =>
+            new URL(registration.scope).pathname === '/gota-a-gota/docs/'
+          ).map(registration => registration.unregister())
+        )).catch(() => {});
     }
-    window.location.replace(target);
   </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c161d">
+  <meta name="description" content="Gota a Gota: cuide da sua hidratação contando goladas, no seu ritmo.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Gota a Gota">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css?v=3">
+  <title>Gota a Gota | Sua hidratação, no seu ritmo</title>
 </head>
 <body>
-<p>O Gota a Gota mudou de endereço. <a href="../">Abrir o aplicativo</a>.</p>
+  <div class="app-shell">
+    <header class="topbar">
+      <a href="#hoje" class="brand" aria-label="Gota a Gota, início">
+        <span class="brand-drop" aria-hidden="true">◕</span>
+        <span>gota<span class="brand-a">a</span>gota</span>
+      </a>
+      <span class="header-tag"><span class="header-dot"></span> Um dia de cada vez</span>
+    </header>
+
+    <main class="content">
+      <section id="panel-hoje" class="panel" aria-labelledby="titulo-hoje">
+        <div class="intro">
+          <p class="eyebrow">HIDRATAÇÃO SEM COMPLICAÇÃO</p>
+          <h1 id="titulo-hoje">Uma golada<br><em>de cada vez.</em></h1>
+          <p class="intro-subtitle" id="today-date">Seu momento de cuidar de você.</p>
+        </div>
+
+        <div class="hero">
+          <div class="hero-decoration hero-decoration-a"></div>
+          <div class="hero-decoration hero-decoration-b"></div>
+          <p class="hero-kicker">SUA PRÓXIMA PAUSA</p>
+          <div class="hero-main"><span id="sip-count">10</span><span class="hero-unit">goladas</span></div>
+          <p class="hero-copy">Pegue seu copo com canudo e beba tranquilamente. Sem pressa, sem contas complicadas.</p>
+          <button type="button" class="primary-button" id="log-water">
+            <span aria-hidden="true">✓</span> Bebi minhas <span id="button-sips">10</span> goladas
+          </button>
+          <div class="hero-next"><span aria-hidden="true">◷</span><span id="next-reminder">Confira os horários em Ajustes</span></div>
+        </div>
+
+        <div class="section-heading"><h2>Seu progresso</h2><span class="date-chip">hoje</span></div>
+        <section class="surface progress-card" aria-label="Progresso de hoje">
+          <div class="progress-top"><div><p class="small-label">PAUSAS REGISTRADAS</p><p class="progress-number"><span id="progress-done">0</span><span class="progress-total"> / <span id="progress-target">9</span></span></p></div><div class="progress-glyph" aria-hidden="true">💧</div></div>
+          <div class="progress-track" role="progressbar" id="progress-track" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0" aria-label="Pausas registradas"><div class="progress-fill" id="progress-fill"></div></div>
+          <div class="stats">
+            <div><strong id="today-sips">0</strong><span>goladas hoje</span></div>
+            <div class="stats-divider"></div>
+            <div><strong id="today-rounds">0</strong><span>pausas feitas</span></div>
+          </div>
+          <button type="button" class="text-button" id="undo-water" disabled>↶ Desfazer último registro</button>
+        </section>
+
+        <section class="surface bottle-card">
+          <div class="bottle-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 64" width="45" height="62" fill="none"><path d="M17 6h14v7l5 5v37c0 3-2 5-5 5H17c-3 0-5-2-5-5V18l5-5V6Z" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/><path d="M14 34h20v20c0 2-1 4-4 4H18c-3 0-4-2-4-4V34Z" fill="currentColor" opacity=".17"/><path d="M17 5h14M19 23h10" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>
+          </div>
+          <div><h3>Seu copão de 2 litros</h3><p>Não precisa medir tudo. O app acompanha suas pausas e goladas, sem presumir quantos ml você bebeu.</p></div>
+        </section>
+
+        <div class="section-heading"><h2>Horários planejados</h2><span class="quiet" id="schedule-caption"></span></div>
+        <div class="schedule-list surface" id="schedule-list" aria-label="Horários diários"></div>
+        <p class="fine-print">Se sentir sede antes do lembrete, beba água. Os horários ajudam a criar o hábito, não são uma obrigação médica.</p>
+      </section>
+
+      <section id="panel-historico" class="panel" aria-labelledby="titulo-historico" hidden>
+        <div class="intro"><p class="eyebrow">SUAS PEQUENAS CONQUISTAS</p><h1 id="titulo-historico">Cada gota <em>conta.</em></h1><p class="intro-subtitle">Uma visão simples dos seus últimos sete dias.</p></div>
+        <section class="surface history-card"><h2>Últimos 7 dias</h2><div id="history-chart" class="history-chart" role="img" aria-label="Gráfico das pausas nos últimos sete dias"></div><div class="history-legend">Altura das barras = pausas registradas em cada dia</div></section>
+        <section class="surface"><h2 class="history-heading">Dia a dia</h2><div id="history-list"></div></section>
+        <p class="fine-print">Seu histórico é salvo somente neste navegador, neste aparelho. Limpar os dados do navegador também pode apagar os registros.</p>
+      </section>
+
+      <section id="panel-ajustes" class="panel" aria-labelledby="titulo-ajustes" hidden>
+        <div class="intro"><p class="eyebrow">DO SEU JEITO</p><h1 id="titulo-ajustes">Seu ritmo,<br><em>suas regras.</em></h1><p class="intro-subtitle">Escolha a quantidade de goladas e os momentos do dia.</p></div>
+        <form id="settings-form" class="surface settings-form">
+          <div class="setting-row"><label for="start-time">Primeiro horário</label><input id="start-time" name="start" type="time" required></div>
+          <div class="setting-row"><label for="end-time">Último horário</label><input id="end-time" name="end" type="time" required></div>
+          <div class="setting-block"><label for="interval">Intervalo entre pausas</label><select id="interval" name="interval"><option value="60">A cada 1 hora</option><option value="90">A cada 1h30</option><option value="120">A cada 2 horas</option><option value="180">A cada 3 horas</option></select></div>
+          <div class="setting-block"><label for="sips">Goladas por pausa</label><select id="sips" name="sips"><option value="6">6 goladas</option><option value="8">8 goladas</option><option value="10">10 goladas</option><option value="12">12 goladas</option><option value="15">15 goladas</option></select></div>
+          <label class="toggle-line"><span><strong>Lembretes enquanto o app está aberto</strong><small>O app mostra um aviso no horário escolhido quando estiver em uso.</small></span><input id="reminders-open" type="checkbox" role="switch"></label>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <button class="save-button" type="submit">Salvar meus horários</button>
+        </form>
+        <section class="surface notice">
+          <div class="notice-icon" aria-hidden="true">🔔</div>
+          <div><h2>Sobre as notificações</h2><p>Esta versão avisa dentro do app quando ele está aberto. Para receber notificações no iPhone <strong>com o app fechado</strong>, ainda será preciso integrar um serviço de notificações push.</p><button type="button" id="test-reminder" class="outlined-button">Testar aviso agora</button></div>
+        </section>
+        <section class="surface install-card">
+          <h2>Coloque na tela de início</h2>
+          <p>Abra o site pelo <strong>Safari</strong>, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. O Gota a Gota abrirá como um aplicativo.</p>
+          <div id="install-status" class="install-status"></div>
+        </section>
+        <p class="fine-print">Os dados ficam no seu aparelho. Não usamos cadastro, publicidade ou rastreamento.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação do aplicativo">
+      <button type="button" data-tab="hoje" class="nav-button is-active" aria-current="page"><span aria-hidden="true">⌂</span>Hoje</button>
+      <button type="button" data-tab="historico" class="nav-button"><span aria-hidden="true">▥</span>Histórico</button>
+      <button type="button" data-tab="ajustes" class="nav-button"><span aria-hidden="true">⚙</span>Ajustes</button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden><div class="toast-icon">💧</div><div><strong id="toast-title">Hora de beber água!</strong><p id="toast-body"></p></div><button type="button" id="toast-close" aria-label="Fechar aviso">×</button></div>
+  <script src="./app.js" defer></script>
 </body>
 </html>
